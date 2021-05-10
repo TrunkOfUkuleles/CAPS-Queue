@@ -9,6 +9,7 @@ let deliverySystem = io.connect(`${HOST}/caps`);
 let data = { }
 
 
+deliverySystem.emit('join', data)
 const addStore = (val) => {
     data[`${val}`] = {'delivered': []}
     console.log("ADD STORE =====: ", data)
