@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node Queue.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/TrunkOfUkuleles/CAPS-Queue/issues"
   },
-  "homepage": "https://github.com/TrunkOfUkuleles/CAPS-Queue#readme"
+  "homepage": "https://github.com/TrunkOfUkuleles/CAPS-Queue#readme",
+  "dependencies": {
+    "dotenv": "^9.0.1",
+    "socket.io-client": "^4.0.2"
+  }
 }
