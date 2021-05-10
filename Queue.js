@@ -9,31 +9,34 @@ let deliverySystem = io.connect(`${HOST}/caps`);
 let data = { }
 
 
-deliverySystem.emit('join', data)
+deliverySystem.emit('join', 'queue')
 const addStore = (val) => {
     data[`${val}`] = {'delivered': []}
     console.log("ADD STORE =====: ", data)
 }
 
-deliverySystem.on('join', payload => {
+deliverySystem.on('joined', payload => {
     if(!Object.keys(data).includes(payload)){addStore(payload)}
     if(data[`${payload}`].delivered.length > 0){
-        deliverySystem.to(payload).emit('catchup', data[`${payload}`])
+        deliverySystem.to(`${payload}`).emit('catchup', data[`${payload}`])
     }
 })
 
 deliverySystem.on('catched-up', payload => {
     // emit to whatever you want here
+    console.log("CATCHUP====: ", payload)
     data[`${payload.delivered[0].storeName}`] =  {'delivered': []}
 });
 
 deliverySystem.on('delivered', payload => {
     // emit to whatever you want here
+    console.log("DELIVERED====: ", payload)
     data[`${payload.storeName}`].delivered.push(payload)
 });
 
 deliverySystem.on('confirmed', payload => {
     // console.log("confirmed: ", payload)
+    console.log("confirmed====: ", payload)
     data[`${payload.storeName}`].delivered = track[`${payload.storeName}`].delivered.filter(el => {
         if (el.orderId !== payload.orderId) return el
     })
